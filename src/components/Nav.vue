@@ -19,6 +19,7 @@
     }
 </script>
 <style lang="scss" scoped>//scoped作用：类名只在当前目录下生效，避免class名称重复
+@import "~@/assets/style/reset.scss";
 nav {
     display: flex;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -37,7 +38,7 @@ nav {
         }
     }
     > .item.selected{
-        color: chocolate;
+        color:$color-highlight;
     }//router-link标签被选中时变色
 }
 </style>
