@@ -1,5 +1,5 @@
 <template>
-    <svg>
+    <svg class="icon">
         <!--      引用时 用use标签-->
         <use v-bind:xlink:href="name"/>
         <use :xlink:href="'#'+name"/>
@@ -15,19 +15,25 @@
     // console.log(y)
     // console.log(z)
     //下面的代码能解决以上代码重复的问题 ↓ ↓
-    const importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
+    const importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext)
     try {
-        importAll(require.context('../assets/icons', true, /\.svg$/));
+        importAll(require.context('../assets/icons', true, /\.svg$/))
     } catch (error) {
         console.log(error)
     }
     //require.content意思是指定在那个目录搜索。将一个目录的.svg文件引入到当前文件
     export default {
         props: ['name'],
-        name: "Icon"
-    };
+        name: 'Icon'
+    }
 </script>
 
 <style lang="scss" scoped>
-
+ .icon{
+     width: 1em;
+     height: 1em;
+     vertical-align: -0.15em;
+     fill: currentColor;
+     overflow: hidden;
+ }
 </style>
