@@ -12,9 +12,15 @@
         padding: 0;
         box-sizing: border-box;
     }
+    ul,ol{
+        list-style: none;
+    }
     a{
         text-decoration: none;
         color: inherit;
+    }
+    button,input{
+        font: inherit;
     }
     body {
         -webkit-font-smoothing: antialiased;
