@@ -1,7 +1,6 @@
 <template>
     <svg class="icon">
         <!--      引用时 用use标签-->
-        <use v-bind:xlink:href="name"/>
         <use :xlink:href="'#'+name"/>
         <!--      ↑ ↑简写<use v-bind:xlink:href="name"/>-->
     </svg>
