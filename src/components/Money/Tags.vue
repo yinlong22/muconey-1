@@ -4,18 +4,32 @@
             <button>新建标签</button>
         </div>
         <ul class="current">
-            <li>衣</li>
-            <li>食</li>
-            <li>住</li>
-            <li>行</li>
-            <li>玩</li>
+            <li v-for="tag in dataSource" :key="tag"
+                :class="{selected: selectedTags.indexOf(tag)>=0}"
+                @click="select(tag)">{{tag}}
+                <!--如果selectedTags上push的有（tag）class属性上就加selected选中属性-->
+            </li>
         </ul>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: 'Tags'
+    import Vue from 'vue'
+    import {Component, Prop} from 'vue-property-decorator'
+
+    @Component
+    export default class Tags extends Vue {
+        @Prop() dataSource: string[] | undefined
+        selectedTags: string[] = []
+
+        select(tag: string) {
+            const index = this.selectedTags.indexOf(tag)
+            if (index >= 0) {
+                this.selectedTags.splice(index, 1)
+            } else {
+                this.selectedTags.push(tag)//点击后执行这个函数，当选中后，tag会被push到selectedTags上
+            }
+        }
     }
 </script>
 
@@ -40,6 +54,11 @@
                 margin-right: 12px;
                 line-height: $h;
                 margin-top: 3px;
+
+                &.selected {
+                    background: cadetblue;
+                    color: whitesmoke;
+                }
             }
         }
 

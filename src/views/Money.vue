@@ -4,12 +4,12 @@
             <NumberPad/>
             <Types :xxx="2333"/>
             <Notes/>
-            <Tags/>
+            <Tags :data-source="tags"/>
         </Layout>
     </div>
 </template>
 
-<script lang="ts">
+<script lang="js">
     // import Nav from '@/components/Nav.vue'
     import NumberPad from '@/components/Money/NumberPad.vue'
     import Types from '@/components/Money/Types.vue'
@@ -20,7 +20,13 @@
         name: 'Money',
         components: {Tags, Notes, Types, NumberPad},
         // components:{Nav} /已通过全局引入(在main.ts里)
+        data() {
+            return {
+                tags: ['衣', '食', '住', '行', '吃鸡']
+            }
+        }
     }
+
 </script>
 
 <style lang="scss">
