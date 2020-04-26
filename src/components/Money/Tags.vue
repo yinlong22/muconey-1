@@ -1,7 +1,7 @@
 <template>
     <div class="tags">
         <div class="new">
-            <button>新建标签</button>
+            <button @click="create">新建标签</button>
         </div>
         <ul class="current">
             <li v-for="tag in dataSource" :key="tag"
@@ -19,7 +19,7 @@
 
     @Component
     export default class Tags extends Vue {
-        @Prop() dataSource: string[] | undefined
+        @Prop() readonly dataSource: string[] | undefined
         selectedTags: string[] = []
 
         select(tag: string) {
@@ -30,6 +30,16 @@
                 this.selectedTags.push(tag)//点击后执行这个函数，当选中后，tag会被push到selectedTags上
             }
         }
+
+        create() {
+            const name = window.prompt('请输入标签名')
+            if (name === '') {
+                window.alert('标签名不能为空')
+            } else if (this.dataSource) {
+                this.$emit('update:dataSource', [...this.dataSource, name])
+            }
+        }
+
     }
 </script>
 

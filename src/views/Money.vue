@@ -4,7 +4,8 @@
             <NumberPad/>
             <Types :xxx="2333"/>
             <Notes/>
-            <Tags :data-source="tags"/>
+            <Tags :data-source.sync="tags"/>
+<!--            如果触发了updateSource时间，会把传的数组赋值给tags-->
         </Layout>
     </div>
 </template>
