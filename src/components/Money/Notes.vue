@@ -1,9 +1,12 @@
 <template>
     <label class="notes">
         <span class="name">备注</span>
-        <input type="text" :value="value"
-               @input='onInput'
+        <input type="text"
+               v-model="value"
                placeholder="在这里输入备注">
+<!--        :value="value"
+            @input='value=$event.target.value' / ↓ ↓
+            当先绑定:value='你的数据'，input事件将'你的数据'赋值为$event.target.value输入值时,就可以简化为 v-module='x'-->
     </label>
 </template>
 
@@ -14,11 +17,6 @@
     @Component
     export default class Notes extends Vue {
         value = ''
-
-        onInput(event: KeyboardEvent) {
-            const input = event.target as HTMLInputElement
-            this.value = input.value
-        }
     }
 </script>
 
