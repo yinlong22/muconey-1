@@ -20,25 +20,31 @@
 </script>
 <style lang="scss" scoped>//scoped作用：类名只在当前目录下生效，避免class名称重复
 @import "~@/assets/style/reset.scss";
+
 nav {
+    @extend %outerShadow;
     display: flex;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
     flex-direction: row;
     font-size: 12px;
-    > .item{
+
+    > .item {
         padding: 2px 0;
         width: 33.3333333%;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column-reverse;
-        .icon{
+
+        .icon {
             width: 32px;
             height: 32px;
         }
     }
-    > .item.selected{
-        color:$color-highlight;
-    }//router-link标签被选中时变色
+
+    > .item.selected {
+        color: $color-highlight;
+    }
+
+    //router-link标签被选中时变色
 }
 </style>
