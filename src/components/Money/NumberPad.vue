@@ -1,33 +1,76 @@
 <template>
     <div class="numberPad">
-        <div class="output">100</div>
+        <div class="output">{{output}}</div>
         <div class="buttons">
-            <button>1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>删除</button>
-            <button>4</button>
-            <button>5</button>
-            <button>6</button>
-            <button>清空</button>
-            <button>7</button>
-            <button>8</button>
-            <button>9</button>
-            <button class="ok">OK</button>
-            <button class="zero">0</button>
-            <button>.</button>
+            <button class="btn" @click="inputContent">1</button>
+            <button class="btn" @click="inputContent">2</button>
+            <button class="btn" @click="inputContent">3</button>
+            <button class="btn" @click="remove">删除</button>
+            <button class="btn" @click="inputContent">4</button>
+            <button class="btn" @click="inputContent">5</button>
+            <button class="btn" @click="inputContent">6</button>
+            <button class="btn" @click="clear">清空</button>
+            <button class="btn" @click="inputContent">7</button>
+            <button class="btn" @click="inputContent">8</button>
+            <button class="btn" @click="inputContent">9</button>
+            <button class="btn" @click="ok" id="ok">OK</button>
+            <button class="btn" @click="inputContent" id="zero">0</button>
+            <button class="btn" @click="inputContent"><strong>.</strong></button>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-    export default {
-        name: 'NumberPad'
+    import Vue from 'vue'
+    import {Component} from 'vue-property-decorator'
+
+    @Component
+    export default class Types extends Vue {
+        output = '0'
+
+        inputContent(event: MouseEvent) {//传的的参数为点击事件的参数
+            const button = (event.target as HTMLButtonElement)//强制将这个event.target改为按钮事件
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            const input = button.textContent! //!排除input为空的情况
+            if (this.output.length === 16) {
+                return
+            }
+            if (this.output === '0') {
+                if ('0123456789'.indexOf(input) >= 0) {
+                    this.output = input
+                } else {
+                    this.output += input
+                }
+                return
+            }
+            //如果output的.大于0或者输入· 就拜拜
+            if (this.output.indexOf('.') >= 0 && input === '.') {
+                return
+            }
+            this.output += input
+        }
+
+        remove() {
+            if (this.output.length === 1) {
+                this.output = '0'
+            } else {
+                this.output = this.output.slice(0,-1)
+            }
+        }
+
+        clear() {
+            this.output = '0'
+        }
+
+        ok() {
+
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     @import "~@/assets/style/reset.scss";
+
     .numberPad {
         .output {
             @extend %clearFix;
@@ -36,9 +79,8 @@
             font-family: Consolas, monospace; //monospace等宽字体
             padding: 9px 16px;
             text-align: right;
-
+            height: 72px;
         }
-
         .buttons {
             @extend %clearFix; //如果子元素用到了float布局，父元素必须加上clearFix属性
             > button {
@@ -47,13 +89,15 @@
                 height: 8vh;
                 background: transparent;
                 border: none;
-
-                &.ok {
+                &#ok {
                     height: 16vh;
                     float: right;
                 }
+                &.btn:active{
+                    background: rosybrown;
 
-                &.zero {
+                }
+                &#zero {
                     width: 25*2%;
                 }
 
