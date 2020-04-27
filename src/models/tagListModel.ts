@@ -1,9 +1,13 @@
 const localStorageKeyName = 'tagList'
+type Tag = {
+    id: string;
+    name: string;
+}
 type TagListModel = {
-    data: string[]
-    fetch: () => string[]
-    create: (name: string) => 'success' | 'duplicated'
-    save: () => void
+    data: Tag[];
+    fetch: () => Tag[];
+    create: (name: string) => 'success' | 'duplicated';
+    save: () => void;
 }
 const tagListModel: TagListModel = {
     data: [],
@@ -12,10 +16,12 @@ const tagListModel: TagListModel = {
         return this.data
     },
     create(name: string) {
-        if (this.data.indexOf(name) >= 0) {
+        // this.data=[{id:'1',name:'1'},{id:'2',name:'2'}]
+        const names = this.data.map(item => item.name)//把data里面的name收集起来组成一个names数组
+        if (names.indexOf(name) >= 0) {
             return 'duplicated'
         }
-        this.data.push(name)
+        this.data.push({id:name,name:name})
         this.save()
         return 'success'
     },
