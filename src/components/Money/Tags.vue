@@ -4,9 +4,9 @@
             <button @click="create">新建标签</button>
         </div>
         <ul class="current">
-            <li v-for="tag in dataSource" :key="tag"
+            <li v-for="tag in dataSource" :key="tag.id"
                 :class="{selected: selectedTags.indexOf(tag)>=0}"
-                @click="select(tag)">{{tag}}
+                @click="select(tag)">{{tag.name}}
                 <!--如果selectedTags上push的有（tag）class属性上就加selected选中属性-->
             </li>
         </ul>
