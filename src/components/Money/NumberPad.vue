@@ -22,13 +22,14 @@
 
 <script lang="ts">
     import Vue from 'vue'
-    import {Component,Prop} from 'vue-property-decorator'
+    import {Component, Prop} from 'vue-property-decorator'
 
     @Component
     export default class Types extends Vue {
         // output = '0'  /有.sync了，在Money里初始化数据
-    @Prop() readonly value!: number
-        output=this.value.toString()
+        @Prop() readonly value!: number
+        output = this.value.toString()
+
         inputContent(event: MouseEvent) {//传的的参数为点击事件的参数
             const button = (event.target as HTMLButtonElement)//强制将这个event.target改为按钮事件
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -55,7 +56,7 @@
             if (this.output.length === 1) {
                 this.output = '0'
             } else {
-                this.output = this.output.slice(0,-1)
+                this.output = this.output.slice(0, -1)
             }
         }
 
@@ -64,8 +65,9 @@
         }
 
         ok() {
-            this.$emit('update:value',this.output)
-            this.$emit('submit',this.output)
+            this.$emit('update:value', this.output)
+            this.$emit('submit', this.output)
+            this.output = '0'
         }
     }
 </script>
@@ -83,6 +85,7 @@
             text-align: right;
             height: 72px;
         }
+
         .buttons {
             @extend %clearFix; //如果子元素用到了float布局，父元素必须加上clearFix属性
             > button {
@@ -91,14 +94,17 @@
                 height: 8vh;
                 background: transparent;
                 border: none;
+
                 &#ok {
                     height: 16vh;
                     float: right;
                 }
-                &.btn:active{
+
+                &.btn:active {
                     background: rosybrown;
 
                 }
+
                 &#zero {
                     width: 25*2%;
                 }
