@@ -1,15 +1,21 @@
 <template>
     <Layout>
         <div class="navBar">
+            <router-link to="/labels">
             <Icon class="leftIcon" name="left"/>
+            </router-link>
             <span>编辑标签</span>
             <span class="rightItem"/>
         </div>
         <div class="form-wrapper">
-            <FormItem :value="tag.name" field-name="标签名" placeholder="请输入标签名"/>
+            <FormItem :value="tag.name"
+                      @update:value="update"
+                      field-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="button-wrapper">
-            <Button class="button">删除标签</Button>
+            <router-link to="/labels">
+            <Button class="button" @click="remove">删除标签</Button>
+            </router-link>
         </div>
     </Layout>
 </template>
@@ -24,7 +30,7 @@
         components: {FormItem}
     })
     export default class EditLabel extends Vue {
-        tag?: { id: string;name: string } = undefined//？意思是tag 默认值为空
+        tag?: { id: string; name: string } = undefined//？意思是tag 默认值为空
 
         created() {
             const id = this.$route.params.id//params可以拿到route里所有的参数
@@ -35,6 +41,18 @@
                 this.tag = tag
             } else {
                 this.$router.replace('/404')
+            }
+        }
+
+        update(name: string) {
+            if (this.tag) {
+                tagListModel.update(this.tag.id, name)
+            }
+        }
+
+        remove() {
+            if (this.tag) {
+                tagListModel.remove(this.tag.id)
             }
         }
     }
