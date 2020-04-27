@@ -1,6 +1,16 @@
 <template>
     <Layout>
-        编辑标签
+        <div class="navBar">
+            <Icon class="leftIcon" name="left"/>
+            <span>编辑标签</span>
+            <span class="rightItem"/>
+        </div>
+        <div class="form-wrapper">
+            <FormItem field-name="标签名" placeholder="请输入标签名"/>
+        </div>
+        <div class="button-wrapper">
+            <Button class="button">删除标签</Button>
+        </div>
     </Layout>
 </template>
 
@@ -8,8 +18,11 @@
     import Vue from 'vue'
     import {Component} from 'vue-property-decorator'
     import tagListModel from '@/models/tagListModel'
+    import FormItem from '@/components/Money/FormItem.vue'
 
-    @Component
+    @Component({
+        components: {FormItem}
+    })
     export default class EditLabel extends Vue {
         created() {
             const id = this.$route.params.id//params可以拿到route里所有的参数
@@ -26,5 +39,39 @@
 </script>
 
 <style lang="scss" scoped>
+    .navBar {
+        text-align: center;
+        font-size: 19px;
+        padding: 13px 16px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
+        > .title {
+
+        }
+
+        .leftIcon {
+            color: brown;
+            width: 25px;
+            height: 25px;
+        }
+
+        .rightItem {
+            width: 25px;
+            height: 25px;
+        }
+    }
+
+    .form-wrapper {
+        background: white;
+        margin-top: 9px;
+    }
+
+    .button-wrapper {
+        text-align: center;
+        padding: 18px;
+        margin-top: 36px;
+    }
 </style>
