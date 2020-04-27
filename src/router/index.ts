@@ -24,7 +24,7 @@ const routes: Array<RouteConfig> = [
         component: Labels
     },
     {
-        path:'/labels/edit',
+        path:'/labels/edit/:id',//:id用来表示id=1,1的名字的
         component:EditLabel
     },
     {
