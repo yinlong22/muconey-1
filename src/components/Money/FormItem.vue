@@ -2,7 +2,8 @@
     <label class="formItem">
         <span class="name">{{this.fieldName}}</span>
         <input type="text"
-               v-model="value"
+               :value="value"
+               @input="onValueChanged($event.target.value)"
                :placeholder="this.placeholder">
         <!--        :value="value"
                     @input='value=$event.target.value' / ↓ ↓
@@ -16,14 +17,13 @@
 
     @Component
     export default class FormItem extends Vue {
-        @Prop({default:''})value!: string
-
+        @Prop({default: ''}) readonly value!: string
         @Prop({required: true}) fieldName!: string
         @Prop() placeholder?: string
 
         @Watch('value')
         onValueChanged(value: string) {
-            this.$emit('update:value', value)
+            this.$emit('update:value', value)//拿到input的值，回传给update:value
         }
     }
 </script>
