@@ -4,19 +4,24 @@
         <input type="text"
                v-model="value"
                placeholder="在这里输入备注">
-<!--        :value="value"
-            @input='value=$event.target.value' / ↓ ↓
-            当先绑定:value='你的数据'，input事件将'你的数据'赋值为$event.target.value输入值时,就可以简化为 v-module='x'-->
+        <!--        :value="value"
+                    @input='value=$event.target.value' / ↓ ↓
+                    当先绑定:value='你的数据'，input事件将'你的数据'赋值为$event.target.value输入值时,就可以简化为 v-module='x'-->
     </label>
 </template>
 
 <script lang="ts">
     import Vue from 'vue'
-    import {Component} from 'vue-property-decorator'
+    import {Component, Watch} from 'vue-property-decorator'
 
     @Component
     export default class Notes extends Vue {
         value = ''
+
+        @Watch('value')
+        onValueChanged(value: string) {
+            this.$emit('update:value',value)
+        }
     }
 </script>
 

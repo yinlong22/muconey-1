@@ -29,6 +29,7 @@
             } else {
                 this.selectedTags.push(tag)//点击后执行这个函数，当选中后，tag会被push到selectedTags上
             }
+            this.$emit('update:value',this.selectedTags)
         }
 
         create() {

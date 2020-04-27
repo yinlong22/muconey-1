@@ -22,12 +22,13 @@
 
 <script lang="ts">
     import Vue from 'vue'
-    import {Component} from 'vue-property-decorator'
+    import {Component,Prop} from 'vue-property-decorator'
 
     @Component
     export default class Types extends Vue {
-        output = '0'
-
+        // output = '0'  /有.sync了，在Money里初始化数据
+    @Prop() readonly value!: number
+        output=this.value.toString()
         inputContent(event: MouseEvent) {//传的的参数为点击事件的参数
             const button = (event.target as HTMLButtonElement)//强制将这个event.target改为按钮事件
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -63,7 +64,7 @@
         }
 
         ok() {
-
+            this.$emit('update:value',this.output)
         }
     }
 </script>
