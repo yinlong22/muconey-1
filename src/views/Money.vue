@@ -18,17 +18,17 @@
     import Types from '@/components/Money/Types.vue'
     import FormItem from '@/components/Money/FormItem.vue'
     import Tags from '@/components/Money/Tags.vue'
-    import {Component, Watch} from 'vue-property-decorator'
-    import recordListModel from '@/models/recordListModel'
-    const recordList = recordListModel.fetch()
+    import {Component} from 'vue-property-decorator'
+    import store from '@/store/index2'
+
     // const model = require('@/model.js').model
 
     const version = window.localStorage.getItem('version') || '0'
     if (version === '0.0.1') {//数据库升级，数据迁徙
-        recordList.forEach(record => {
+        store.recordList.forEach(record => {
             record.createdAt = new Date(2020, 0, 1)
         })
-        window.localStorage.setItem('recordList', JSON.stringify(recordList))// 保存数据
+        window.localStorage.setItem('recordList', JSON.stringify(store.recordList))// 保存数据
     } else
         window.localStorage.setItem('version', '0.0.2')
     // 重置数据库版本
@@ -37,8 +37,8 @@
         components: {Tags, FormItem, Types, NumberPad}
     })
     export default class Money extends Vue {
-        tags = window.tagList
-        recordList: RecordItem[] = recordList
+        tags = store.tagList
+        recordList = store.recordList
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0}
 
         // components:{Nav} /已通过全局引入(在main.ts里)
@@ -51,12 +51,7 @@
         }
 
         saveRecord() {
-            recordListModel.create(this.record)
-        }
-
-        @Watch('recordList')
-        onRecordListChange() {
-            recordListModel.save()
+            store.createRecord(this.record)
         }
     }
 </script>
