@@ -21,36 +21,32 @@
 <script lang="ts">
     import Vue from 'vue'
     import {Component} from 'vue-property-decorator'
-    import tagListModel from '@/models/tagListModel'
     import FormItem from '@/components/Money/FormItem.vue'
+    import Button from '@/components/Money/Button.vue'
 
     @Component({
-        components: {FormItem}
+        components: {FormItem, Button}
     })
     export default class EditLabel extends Vue {
-        tag?: { id: string; name: string } = undefined//？意思是tag 默认值为空
+        tag?: Tag = undefined//？意思是tag 默认值为空
 
         created() {
-            const id = this.$route.params.id//params可以拿到route里所有的参数
-            tagListModel.fetch
-            const tags = tagListModel.data
-            const tag = tags.filter(t => t.id === id)[0]
-            if (tag) {
-                this.tag = tag
-            } else {
+            //params可以拿到route里所有的参数
+            this.tag = window.findTag(this.$route.params.id)
+            if (!this.tag) {
                 this.$router.replace('/404')
             }
         }
 
         update(name: string) {
             if (this.tag) {
-                tagListModel.update(this.tag.id, name)
+                window.updateTag(this.tag.id, name)
             }
         }
 
         remove() {
             if (this.tag) {
-                if (tagListModel.remove(this.tag.id)
+                if (window.removeTag(this.tag.id)
                 ) {
                     this.$router.back()
                 } else {
