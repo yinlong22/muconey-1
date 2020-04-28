@@ -25,7 +25,7 @@
     import {Component, Prop} from 'vue-property-decorator'
 
     @Component
-    export default class Types extends Vue {
+    export default class NumberPad extends Vue {
         // output = '0'  /有.sync了，在Money里初始化数据
         @Prop() readonly value!: number
         output = this.value.toString()

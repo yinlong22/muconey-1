@@ -2,7 +2,7 @@
     <Layout>
         <div class="navBar">
             <router-link to="/labels">
-            <Icon class="leftIcon" name="left"/>
+                <Icon class="leftIcon" name="left"/>
             </router-link>
             <span>编辑标签</span>
             <span class="rightItem"/>
@@ -13,9 +13,7 @@
                       field-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="button-wrapper">
-            <router-link to="/labels">
             <Button class="button" @click="remove">删除标签</Button>
-            </router-link>
         </div>
     </Layout>
 </template>
@@ -52,7 +50,12 @@
 
         remove() {
             if (this.tag) {
-                tagListModel.remove(this.tag.id)
+                if (tagListModel.remove(this.tag.id)
+                ) {
+                    this.$router.back()
+                } else {
+                    window.alert('删除失败')
+                }
             }
         }
     }

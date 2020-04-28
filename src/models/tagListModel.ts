@@ -1,4 +1,5 @@
 import deleteProperty = Reflect.deleteProperty
+import createId from '@/lib/idCreator'
 
 const localStorageKeyName = 'tagList'
 type Tag = {
@@ -10,7 +11,7 @@ type TagListModel = {
     fetch: () => Tag[];
     create: (name: string) => 'success' | 'duplicated';
     save: () => void;
-    remove: (id: string) => boolean
+    remove: (id: string) => boolean;
     update: (id: string, name: string) => 'success' | 'not found' | 'duplicated';
 }
 const tagListModel: TagListModel = {
@@ -25,7 +26,8 @@ const tagListModel: TagListModel = {
         if (names.indexOf(name) >= 0) {
             return 'duplicated'
         }
-        this.data.push({id: name, name: name})
+        const id= createId().toString()
+        this.data.push({id, name: name})
         this.save()
         return 'success'
     },

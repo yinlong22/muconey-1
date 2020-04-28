@@ -4,7 +4,7 @@
         <input type="text"
                :value="value"
                @input="onValueChanged($event.target.value)"
-               :placeholder="this.placeholder">
+               :placeholder="placeholder">
         <!--        :value="value"
                     @input='value=$event.target.value' / ↓ ↓
                     当先绑定:value='你的数据'，input事件将'你的数据'赋值为$event.target.value输入值时,就可以简化为 v-module='x'-->
@@ -13,7 +13,7 @@
 
 <script lang="ts">
     import Vue from 'vue'
-    import {Component, Prop, Watch} from 'vue-property-decorator'
+    import {Component, Prop} from 'vue-property-decorator'
 
     @Component
     export default class FormItem extends Vue {
@@ -21,7 +21,6 @@
         @Prop({required: true}) fieldName!: string
         @Prop() placeholder?: string
 
-        @Watch('value')
         onValueChanged(value: string) {
             this.$emit('update:value', value)//拿到input的值，回传给update:value
         }

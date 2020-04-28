@@ -23,8 +23,8 @@
     import recordListModel from '@/models/recordListModel'
     import tagListModel from '@/models/tagListModel'
 
-    const tagList = tagListModel.fetch()
     const recordList = recordListModel.fetch()
+    const tagList = tagListModel.fetch()
     // const model = require('@/model.js').model
 
     const version = window.localStorage.getItem('version') || '0'
@@ -55,15 +55,12 @@
         }
 
         saveRecord() {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            const record2: RecordItem = recordListModel.clone(this.record)
-            record2.createdAt = new Date()
-            this.recordList.push(record2)
+            recordListModel.create(this.record)
         }
 
         @Watch('recordList')
-        onRecordListChanged() {
-            recordListModel.save(this.recordList)
+        onRecordListChange() {
+            recordListModel.save()
         }
     }
 </script>
