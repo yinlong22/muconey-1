@@ -13,7 +13,9 @@
                       field-name="标签名" placeholder="请输入标签名"/>
         </div>
         <div class="button-wrapper">
-            <Button class="button" @click="remove">删除标签</Button>
+            <router-link to="/labels">
+                <Button class="button" @click="remove">删除标签</Button>
+            </router-link>
         </div>
     </Layout>
 </template>
@@ -23,17 +25,19 @@
     import {Component} from 'vue-property-decorator'
     import FormItem from '@/components/Money/FormItem.vue'
     import Button from '@/components/Money/Button.vue'
-    import store from '@/store/index2'
 
     @Component({
-        components: {FormItem, Button}
+        components: {FormItem, Button},
     })
     export default class EditLabel extends Vue {
-        tag?: Tag = undefined//？意思是tag 默认值为空
+        get tag() {
+            return this.$store.state.currentTag
+        }
 
         created() {
+            const id = this.$route.params.id
+            this.$store.commit('setCurrentTag', id)
             //params可以拿到route里所有的参数
-            this.tag = store.findTag(this.$route.params.id)
             if (!this.tag) {
                 this.$router.replace('/404')
             }
@@ -41,18 +45,13 @@
 
         update(name: string) {
             if (this.tag) {
-                store.updateTag(this.tag.id, name)
+                this.$store.commit('updateTag', {id: this.tag.id, name})
             }
         }
 
         remove() {
             if (this.tag) {
-                if (store.removeTag(this.tag.id)
-                ) {
-                    this.$router.back()
-                } else {
-                    window.alert('删除失败')
-                }
+                this.$store.commit('removeTag', this.tag.id)
             }
         }
     }
