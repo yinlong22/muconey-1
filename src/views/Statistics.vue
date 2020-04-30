@@ -1,7 +1,7 @@
 <template>
     <Layout>
         <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
+        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" height="45px"/>
         <div>
             type:{{type}}
             interval:{{interval}}
@@ -28,18 +28,21 @@
 </script>
 
 <style scoped lang="scss">
-    ::v-deep .type-tabs-item { //::v-deep或/deep/可以影响外部传到里面的组件
-        background: white;
+    ::v-deep {
+        .type-tabs-item { //::v-deep或/deep/可以影响外部传到里面的组件
+            background: white;
 
-        &.selected {
-            background: #c4c4c4;
+            &.selected {
+                background: #c4c4c4;
 
-            &::after {
-                display: none;
+                &::after {
+                    display: none;
+                }
             }
         }
-    }
-    ::v-deep .interval-tabs-item {
-        height: 45px;
+
+        .interval-tabs-item {
+            /*height: 45px;*/
+        }
     }
 </style>
