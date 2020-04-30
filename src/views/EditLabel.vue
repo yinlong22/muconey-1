@@ -36,6 +36,7 @@
 
         created() {
             const id = this.$route.params.id
+            this.$store.commit('fetchTags')
             this.$store.commit('setCurrentTag', id)
             //params可以拿到route里所有的参数
             if (!this.tag) {
