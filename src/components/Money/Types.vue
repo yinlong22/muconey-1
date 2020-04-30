@@ -1,11 +1,13 @@
 <template>
     <ul class="types">
         <!-- 如果type是-号，就selected-->
-        <li :class="type==='-'&&'selected'"
+        <li :class="{[classPrefix+'-item']:classPrefix,
+        selected:value==='-'}"
             @click="selectType('-')">支出
         </li>
         <!--vue直接省略了false <li :class="type==='-'? 'selected':''">支出</li>-->
-        <li :class="type==='+'&&'selected'"
+        <li :class="{[classPrefix+'-item']:classPrefix,
+        selected:value==='+'}"
             @click="selectType('+')">收入
         </li>
     </ul>
@@ -18,16 +20,17 @@ import {Component, Prop} from 'vue-property-decorator'
 @Component
 export default class Types extends Vue {
     // 只要写了任何的赋值语句，ts文件会自动将它变为实例的属性，直接就是data属性
-    @Prop() readonly type!: string//!的意思是不要初始值
+    @Prop(String) readonly value!: string//!的意思是不要初始值
     //@Pros告诉vue xxx不是data 是外部传来的props
     //Number告诉vue xxx运行时是Number类型
     //xxx为属性名， number|undefined 告诉TS xxx的编译时的类型
+    @Prop(String) classPrefix?: string
 
     selectType(type: string) {//type只能是-和+号中的一个
         if (type !== '-' && type !== '+') {
             throw new Error('type is unknown')
         }
-        this.$emit('update:type',type)
+        this.$emit('update:value', type)
     }
 
 }

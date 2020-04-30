@@ -1,7 +1,9 @@
 <template>
     <Layout class-prefix="layout">
         <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
-        <Types :type.sync="record.type"/>
+        <Tabs :data-source="recordTypeList"
+              :value.sync="record.type"
+        />
         <div class="notes">
             <FormItem field-name="备注"
                       placeholder="在这里输入备注"
@@ -19,6 +21,8 @@
     import FormItem from '@/components/Money/FormItem.vue'
     import Tags from '@/components/Money/Tags.vue'
     import {Component} from 'vue-property-decorator'
+    import Tabs from '@/components/Tabs.vue'
+    import recordTypeList from '@/constants/recordTypeList'
 
 
     // const model = require('@/model.js').model
@@ -34,13 +38,14 @@
     // 重置数据库版本
 
     @Component({
-        components: {Tags, FormItem, Types, NumberPad},
+        components: {Tabs, Tags, FormItem, Types, NumberPad},
     })
     export default class Money extends Vue {
         get recordList() {
             return this.$store.state.count
         }
 
+        recordTypeList = recordTypeList
         record: RecordItem = {tags: [], notes: '', type: '-', amount: 0}
 
         created() {
