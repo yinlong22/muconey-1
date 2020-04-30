@@ -1,6 +1,6 @@
 <template>
     <ul class="tabs" :class="{[classPrefix+'-tabs']:classPrefix}">
-        <li v-for="item in dataSource" :key="item.value" class="tabs.item"
+        <li v-for="item in dataSource" :key="item.value" class="tabs-item"
             :class="liClass(item)" @click="select(item)">
             {{item.text}}
         </li>
@@ -42,7 +42,7 @@
         font-size: 25px;
         align-items: center;
 
-        > li {
+        &-item {//异己选择器 优先级较低
             width: 50%;
             height: 65px;
             display: flex;
