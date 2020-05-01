@@ -1,9 +1,14 @@
+type  RootState = {
+    recordList: RecordItem[],
+    tagList: Tag[],
+    currentTag?: Tag,
+}
 type RecordItem = {//type相当于js里的var
     tags: string[];
     notes: string;
     type: string;
     amount: number; //数据类型
-    createdAt?: Date; //类
+    createdAt?: string; //类
 }
 type Tag = {
     id: string;

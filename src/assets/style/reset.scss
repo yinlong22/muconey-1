@@ -3,6 +3,10 @@ $color-highlight: red;
   outline: none;
 }
 
+h1,h2,h3,h4,h5,h6{
+ font-weight: normal;
+}
+
 //placeholder
 %clearFix { //%是复制了引用到这个属性的选择器.button等
   &::after {
