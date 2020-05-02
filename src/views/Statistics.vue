@@ -1,10 +1,9 @@
 <template>
     <Layout>
         <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-        <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" height="45px"/>
         <ol>
-            <li v-for="(group,index) in result" :key="index.id">
-                <h3 class="title">{{group.title}}</h3>
+            <li v-for="(group,index) in groupedList" :key="index">
+                <h3 class="title">{{beautify(group.title)}}</h3>
                 <ol>
                     <li v-for="item in group.items"
                         :key="item.id" class="record">
@@ -24,6 +23,8 @@
     import Tabs from '@/components/Tabs.vue'
     import intervalList from '@/constants/intervalList'
     import recordTypeList from '@/constants/recordTypeList'
+    import dayjs from 'dayjs'
+    import clone from '@/lib/clone'
 
     @Component({
         components: {Tabs},
@@ -33,21 +34,56 @@
             return tags.length === 0 ? '无' : tags.join(',')
         }
 
+        beautify(string: string) {
+            const now = dayjs()
+            const day = dayjs(string)
+            if (day.isSame(now, 'day')) {
+                return '今天'
+            } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
+                return '昨天'
+            } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
+                return '前天'
+            } else if (day.isSame(now, 'year')) {
+                return day.format('M月D日')
+            } else {
+                return day.format('YYYY年M月D日')
+            }
+            // const d = new Date(Date.parse(string))
+            // const y = d.getFullYear()
+            // const m = d.getMonth()
+            // const dd = d.getDay()
+            // const now = new Date()
+            // if (now.getFullYear() === y && now.getMonth() === m &&
+            //     now.getDate() === dd) {
+            //     return '今天'
+            // }
+        }
+
         get recordList() {
             return (this.$store.state as RootState).recordList
         }
 
-        get result() {
+        get groupedList() {
             const {recordList} = this
-            type HashTableValue = { title: string; items: RecordList[] }
-            const hashTabel: { [key: string]: HashTableValue } = {}
-            for (let i = 0; i < recordList.length; i++) {
+            if (recordList.length === 0) {return []}
+            const newList = clone(recordList)
+                .filter(r => r.type === this.type)
+                .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf())
+            const result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}]
+            for (let i = 1; i < newList.length; i++) {
+                const current = newList[i]
+                const last = result[result.length - 1]
+                if (dayjs(last.title).isSame(dayjs(current.createdAt), 'day')) {
+                    last.items.push(current)
+                } else {
+                    result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]})
+                }
 
-                const [date, time] = recordList[i].createdAt!.split('T')
-                hashTabel[date] = hashTabel[date] || {title: date, items: []}
-                hashTabel[date].items.push(recordList[i])
             }
-            return hashTabel
+            result.forEach(group => {
+                group.total = group.items.reduce()
+            })
+            return result
         }
 
         beforeCreate() {
@@ -55,8 +91,6 @@
         }
 
         type = '-'
-        interval = 'day'
-        intervalList = intervalList
         recordTypeList = recordTypeList
     }
 </script>
@@ -96,7 +130,8 @@
         background: white;
         @extend %item
     }
-    .note{
+
+    .note {
         margin-right: auto;
         margin-left: 16px;
         color: #999;
