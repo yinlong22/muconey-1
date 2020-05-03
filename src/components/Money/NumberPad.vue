@@ -5,7 +5,7 @@
             <button class="btn" @click="inputContent">1</button>
             <button class="btn" @click="inputContent">2</button>
             <button class="btn" @click="inputContent">3</button>
-            <button class="btn" @click="remove">删除</button>
+            <button class="btn" id="btn1" @click="remove"><Icon name="退格"/></button>
             <button class="btn" @click="inputContent">4</button>
             <button class="btn" @click="inputContent">5</button>
             <button class="btn" @click="inputContent">6</button>
@@ -80,24 +80,26 @@
         .output {
             @extend %clearFix;
             @extend %innerShadow;
-            font-size: 36px;
+            font-size: 24px;
             font-family: Consolas, monospace; //monospace等宽字体
-            padding: 9px 16px;
+            padding: 3px 16px;
             text-align: right;
-            height: 72px;
+            height: 36px;
         }
-
+        #btn1{
+            font-size: 26px;
+        }
         .buttons {
             @extend %clearFix; //如果子元素用到了float布局，父元素必须加上clearFix属性
             > button {
                 float: left;
                 width: 25%;
-                height: 8vh;
+                height: 7vh;
                 background: transparent;
                 border: none;
 
                 &#ok {
-                    height: 16vh;
+                    height: 14vh;
                     float: right;
                 }
 

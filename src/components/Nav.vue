@@ -3,12 +3,13 @@
         <router-link to="/money" class="item" active-class="selected">记账
             <Icon name="money"/>
         </router-link>
-        <router-link to="/labels" class="item" active-class="selected">标签
-            <Icon name="label"/>
-        </router-link>
-        <router-link to="/statistics" class="item" active-class="selected">统计
+        <router-link to="/statistics" class="item" active-class="selected">明细
             <Icon name="statistics"/>
         </router-link>
+        <router-link to="/labels" class="item" active-class="selected">图表
+            <Icon name="chart"/>
+        </router-link>
+
     </nav>
 </template>
 

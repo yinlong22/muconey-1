@@ -18,7 +18,7 @@
     export default class Tabs extends Vue {
         @Prop({required: true, type: Array})
         dataSource!: DataSourceItem[]
-        @Prop({type: String, default: '65px'})
+        @Prop({type: String, default: '58px'})
         height!: string
         @Prop(String) readonly value!: string
         @Prop(String) classPrefix?: string
@@ -39,18 +39,21 @@
 
 <style lang="scss" scoped>
     .tabs {
-        background: #c4c4c4;
+        background: gold;
         display: flex;
         text-align: center;
-        font-size: 25px;
+        font-size: 18px;
         align-items: center;
+        justify-content: center;
+        color: #333;
 
         &-item { //异己选择器 优先级较低
-            width: 50%;
+            width: 26%;
             /*height: 65px;*/
             display: flex;
             justify-content: center;
             align-items: center;
+            transform: translateY(10px);
             position: relative;
 
             &.selected::after { //选中后的效果
@@ -58,9 +61,10 @@
                 position: absolute;
                 bottom: 0;
                 left: 0;
-                width: 100%;
-                height: 5px;
+                width: 60%;
+                height: 2px;
                 background: #333;
+                transform: translateX(16px)translateY(-10px);
             }
         }
     }

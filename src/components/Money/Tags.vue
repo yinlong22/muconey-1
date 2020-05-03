@@ -1,7 +1,8 @@
-<template>
+
++<template>
     <div class="tags">
         <div class="new">
-            <button @click="createTag">新建标签</button>
+            <button @click="createTag">管理标签</button>
         </div>
         <ul class="current">
             <li v-for="tag in tagList" :key="tag.id"
@@ -56,7 +57,7 @@
             flex-wrap: wrap;
 
             > li {
-                background: #d9d9d9;
+                background:lightgrey;
                 $h: 24px;
                 height: $h;
                 border-radius: ($h/2);
