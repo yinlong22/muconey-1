@@ -3,6 +3,8 @@ const path = require('path')
 
 module.exports = {
     lintOnSave: false,
+    publicPath: process.env.NODE_ENV === 'production'
+        ? '/muconey-1-website/' : '/',
     chainWebpack: config => {
         const dir = path.resolve(__dirname, 'src/assets/icons')
         //config是vue吧webpack的API封装了，暴露给我们的一个对象
