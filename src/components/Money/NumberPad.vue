@@ -83,6 +83,7 @@
             font-size: 24px;
             font-family: Consolas, monospace; //monospace等宽字体
             padding: 3px 16px;
+            margin-right: 6px;
             text-align: right;
             height: 36px;
         }

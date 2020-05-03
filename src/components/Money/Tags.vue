@@ -153,7 +153,7 @@
 
     .zhaopai {
         margin-top: -10px;
-        margin-bottom: 50px;
+        margin-bottom: 36px;
         color: deeppink;
 
         > .zhaopai2 {
