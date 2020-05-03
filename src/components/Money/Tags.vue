@@ -1,14 +1,73 @@
-
-+<template>
+<template>
     <div class="tags">
         <div class="new">
-            <button @click="createTag">管理标签</button>
+            <div class="zhaopai">
+                <div class="zhaopai2">
+                    <Icon name="欢迎页"/>
+                </div>
+                <div>M</div>
+                <div>U</div>
+                <div>C</div>
+                <div>O</div>
+                <div>N</div>
+                <div>E</div>
+                <div>Y</div>
+            </div>
+<!--            <button @click="createTag">管理标签</button>-->
+            <router-link to="labels">---管理标签</router-link>
         </div>
         <ul class="current">
             <li v-for="tag in tagList" :key="tag.id"
                 :class="{selected: selectedTags.indexOf(tag)>=0}"
-                @click="toggle(tag)">{{tag.name}}
-                <!--如果selectedTags上push的有（tag）class属性上就加selected选中属性-->
+                @click="toggle(tag)">
+                 <span class="tmd" v-if="tag.name==='其他'">
+                    <Icon name="其他"/>
+                </span>
+                <span class="tmd" v-if="tag.name==='餐饮'">
+                    <Icon name="餐饮"/>
+                </span> <span class="tmd" v-if="tag.name==='外卖'">
+                    <Icon name="外卖"/>
+                </span> <span class="tmd" v-if="tag.name==='食材'">
+                    <Icon name="食材"/>
+                </span> <span class="tmd" v-if="tag.name==='零食'">
+                    <Icon name="零食"/>
+                </span> <span class="tmd" v-if="tag.name==='购物'">
+                    <Icon name="购物"/>
+                </span> <span class="tmd" v-if="tag.name==='衣服'">
+                    <Icon name="衣服"/>
+                </span> <span class="tmd" v-if="tag.name==='化妆'">
+                    <Icon name="化妆"/>
+                </span> <span class="tmd" v-if="tag.name==='交通'">
+                    <Icon name="交通"/>
+                </span> <span class="tmd" v-if="tag.name==='住宿'">
+                    <Icon name="住宿"/>
+                </span>
+                <span class="tmd" v-if="tag.name==='游戏'">
+                    <Icon name="游戏"/>
+                </span>
+                <span class="tmd" v-if="tag.name==='电影'">
+                    <Icon name="电影"/>
+                </span> <span class="tmd" v-if="tag.name==='运动'">
+                    <Icon name="运动"/>
+                </span> <span class="tmd" v-if="tag.name==='医药'">
+                    <Icon name="医药"/>
+                </span> <span class="tmd" v-if="tag.name==='水务'">
+                    <Icon name="水务"/>
+                </span>
+                <span class="tmd" v-if="tag.name==='话费'">
+                    <Icon name="话费"/>
+                </span><span class="tmd" v-if="tag.name==='工作'">
+                    <Icon name="工作"/>
+                </span><span class="tmd" v-if="tag.name==='投资'">
+                    <Icon name="投资"/>
+                </span>
+                <span class="tmd" v-if="tag.name==='投资'">
+                    <Icon name="投资"/>
+                </span>
+                <span class="tmd" v-if="tag.name==='红包'">
+                    <Icon name="红包"/>
+                </span>
+                <span class="tmd2">{{tag.name}}</span>
             </li>
         </ul>
     </div>
@@ -50,39 +109,58 @@
         font-size: 16px;
         padding: 16px;
         display: flex;
-        flex-direction: column-reverse;
 
         > .current {
+            overflow: scroll;
             display: flex;
             flex-wrap: wrap;
 
             > li {
-                background:lightgrey;
-                $h: 24px;
-                height: $h;
-                border-radius: ($h/2);
-                padding: 0 16px;
+                box-sizing: border-box;
+                position: relative;
+                height: 62px;
+                width: 20%;
+                padding: 0 30px;
                 margin-right: 12px;
-                line-height: $h;
-                margin-top: 3px;
+                margin-top: 10px;
+                justify-content: space-between;
+                > .tmd {
+                    justify-content: center;
+                    text-align: center;
+                    align-items: center;
+                    position: absolute;
+                    font-size: 39px;
+                    transform: translateY(-8px);
+                }
+
+                > .tmd2 {
+                    position: absolute;
+                    font-size: 13px;
+                    transform: translateY(42px) translateX(5px);
+                }
 
                 &.selected {
-                    background: cadetblue;
-                    color: whitesmoke;
+                    color: orangered;
                 }
             }
         }
 
         > .new {
             padding-top: 16px;
-
-            button {
-                background: transparent;
-                border: none;
-                color: #999;
-                border-bottom: 1px solid;
-                padding: 0 3px;
-            }
+            margin-left: -8px;
         }
     }
+
+    .zhaopai {
+        margin-top: -10px;
+        margin-bottom: 50px;
+        color: deeppink;
+
+        > .zhaopai2 {
+            font-size: 22px;
+            color: red;
+            transform: translateX(-4px);
+        }
+    }
+
 </style>
