@@ -6,9 +6,11 @@ import store from './store'
 import Nav from '@/components/Nav.vue'
 import Layout from '@/components/Layout.vue'
 import Icon from '@/components/Icon.vue'
+// @ts-ignore
+import VCharts from 'v-charts'
 
 Vue.config.productionTip = false
-
+Vue.use(VCharts)
 Vue.component('Nav', Nav)
 Vue.component('Layout', Layout)
 Vue.component('Icon', Icon)
