@@ -6,7 +6,7 @@
         <router-link to="/statistics" class="item" active-class="selected">明细
             <Icon name="statistics"/>
         </router-link>
-        <router-link to="/labels" class="item" active-class="selected">图表
+        <router-link to="/chart" class="item" active-class="selected">图表
             <Icon name="chart"/>
         </router-link>
 

@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import clone from '@/lib/clone'
 import createId from '@/lib/createId'
-import Icon from '@/components/Icon.vue'
 
 Vue.use(Vuex)//把 store 帮到vue.prototype.$store=store
 
