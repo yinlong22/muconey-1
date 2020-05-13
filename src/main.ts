@@ -11,6 +11,9 @@ import VCharts from 'v-charts'
 
 Vue.config.productionTip = false
 Vue.use(VCharts)
+// @ts-ignore
+import echarts from "echarts";
+Vue.prototype.$echarts = echarts;
 Vue.component('Nav', Nav)
 Vue.component('Layout', Layout)
 Vue.component('Icon', Icon)
